@@ -17,7 +17,7 @@ class GetEvents extends Controller {
     async getevents(req, res) {
         const userDoc = req.doc;
         const eventsArray = userDoc.events.reverse();
-        return res.status(200).json(eventsArray)
+        return res.status(200).json(eventsArray);
     }
 }
 

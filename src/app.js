@@ -1,18 +1,15 @@
-'use strict'
-
-const {sessionAuth, apiAuth} = require("./middleware/protectedauth");
 const getFiles = require('node-recursive-directory');
 const cookieParser = require("cookie-parser");
 const mongosession = require("connect-mongo");
 const session = require("express-session");
-const config = require('./core/config');
-const db = require('./core/models');
 const passport = require("passport");
 const express = require("express");
-const path = require("path");
 const http = require("http");
 
-require("./middleware/discordauth");
+const auth = require("./middleware/authMiddleware");
+const config = require('./core/config');
+const db = require('./core/models');
+require("./middleware/passportDiscord");
 
 class App {
     constructor(port, app) {
@@ -40,7 +37,7 @@ class App {
         app.use(express.json());
         app.use(cookieParser());
         app.use(express.urlencoded({ extended: false }));
-        app.use(express.static(path.resolve("../jsenyitko-api/static")));
+        app.use(express.static(config.staticFilePath));
         app.use(session({ secret: config.sessionSecret, cookie: {maxAge: 3600000 * 24}, resave: true, saveUninitialized: true, store: mongosession.create({mongoUrl: config.mongoUrl})}));
 
         this.intializePassport();
@@ -51,7 +48,7 @@ class App {
         })
         
         app.use(express.Router().get('(/*)?', (req, res, next) => {
-            return res.sendFile(path.resolve("../jsenyitko-api/static/index.html"))
+            return res.sendFile(config.staticFileIndex)
         }))
 
         server.listen(app.get('port'), (e) => {
@@ -79,9 +76,9 @@ class App {
         for (let object in route) {
             let routeData = route[object];
             let uri = routeData.api ? `/api/${config.apiVersion}${routeData.uri}` : routeData.uri;
-            if(routeData.protected) app[routeData.method](uri, apiAuth, routeData.handler.bind(routeData));
+            if(routeData.protected) app[routeData.method](uri, auth.apiAuth, routeData.handler.bind(routeData));
             else app[routeData.method](uri, routeData.handler.bind(routeData));
-            console.log(`Route: ${JSON.stringify(routeData.method).toUpperCase()} ${uri} created`);
+            console.log(`* Route: ${JSON.stringify(routeData.method).toUpperCase()} ${uri} created`);
         }
     }
 }

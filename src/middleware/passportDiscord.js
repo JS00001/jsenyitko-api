@@ -1,6 +1,5 @@
 const passport = require("passport");
 const DiscordStrategy = require('passport-discord').Strategy
-, refresh = require('passport-oauth2-refresh')
 const config = require("../core/config");
 const db = require("../core/models");
  
@@ -19,4 +18,3 @@ async function(accessToken, refreshToken, profile, cb) {
 });
 
 passport.use(discordStrategy);
-refresh.use(discordStrategy);

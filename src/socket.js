@@ -5,20 +5,11 @@ const ws = new WebSocket.Server({port: 8080});
 const { WebhookClient } = require("./core/config");
 
 ws.on("listening", () => {
-    console.log("\x1b[91mWeb Socket is now listening for requests.");
+    console.log("Web Socket is now listening for requests.");
 })
 
 ws.on("connection", (socket, req) => {
-    const embed = new Discord.MessageEmbed()
-    .setTitle(":green_circle: Websocket Connected")
-    .setDescription(`Websocket was just connected to by: \`${req.socket.remoteAddress}\``)
-    .setTimestamp()
-    .setColor("F8FF6E");
-    //WebhookClient.send({username: "Websocket Connected", embeds: [embed]});
-
-
     socket.on("message", async msg => {
-        console.log(msg)
         let msgObject = JSON.parse(msg);
         let embed = new Discord.MessageEmbed();
         let usersDatabase = await db.collection('users');

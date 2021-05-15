@@ -1,5 +1,4 @@
 const Controller = require("../../core/controller");
-const db = require("../../core/models");
 
 class GetUser extends Controller {
     constructor() {

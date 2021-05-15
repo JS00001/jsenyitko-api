@@ -1,20 +1,20 @@
-'use strict'
-
 const pkg = require("../../package.json");
 const Discord = require("discord.js");
 const getenv = require("getenv");
+const path = require("path");
 
 require("dotenv").config({ silent: true });
 
 const config = {
-    pkg: pkg,
-    version: pkg.version,
-    author: 'Jack Senyitko',
+    author: 'Jsenyitko',
     apiVersion: 'v1',
     url: "https://jsenyitko.tech",
-    mongoUrl: getenv('MONGO_URL', null),
 }
 
+config.staticFilePath = path.resolve("../jsenyitko-api/static");
+config.staticFileIndex = path.resolve("../jsenyitko-api/static/index.html");
+
+config.mongoUrl = getenv('MONGO_URL', null);
 config.sessionSecret = getenv("SESSION_SECRET", null);
 
 config.hookID = getenv("WEBHOOK_ID", null);

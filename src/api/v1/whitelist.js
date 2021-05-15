@@ -1,5 +1,4 @@
 const Controller = require("../../core/controller");
-const db = require("../../core/models");
 const ws = require("../../socket");
 
 class Whitelist extends Controller {

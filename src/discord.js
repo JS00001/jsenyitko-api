@@ -6,9 +6,8 @@ const ws = require("./socket");
 
 client.login(Config.botToken);
 
-client.on("ready", async => {
-    console.log("Discord bot online");
-    console.log(Config.prefix)
+client.on("ready", () => {
+    console.log("Discord bot is now listening.");
 })
 
 client.on("message", async msg => {

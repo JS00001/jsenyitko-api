@@ -13,7 +13,6 @@ class DataFactory {
         mongoose.set('useUnifiedTopology', true);
         mongoose.set('useNewUrlParser', true);
         mongoose.set('useCreateIndex', true);
-        // mongoose.set('useFindAndModify', false)
         mongoose.connect(url);
 
         const connection = mongoose.connection;
