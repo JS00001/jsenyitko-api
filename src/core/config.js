@@ -51,13 +51,8 @@ config.serverCallbackUrl = "/api/v1/callback";
 
 
 // NODE_ENV Based Variables
-if(config.node_env === "production") {
-    config.clientCallbackUrl = 'https://jsenyitko.tech/api/v1/callback';
-}
+config.clientCallbackUrl = config.node_env === "production" ? 'https://jsenyitko.tech/api/v1/callback' : 'http://localhost/api/v1/callback';
 
-else if(config.node_env === "development") {
-    config.clientCallbackUrl = 'http://localhost/api/v1/callback';
-}
 
 
 
