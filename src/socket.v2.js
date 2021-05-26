@@ -22,6 +22,12 @@ ws.on("connection", (socket, req) => {
                 {$push: {events: {status: "Death", detail:`Coords: ${msgObject.coords}`}}});
                 break;
             }
+            case "ping": {
+                await usersDatabase
+                .findOneAndUpdate({ign: player},
+                {$push: {events: {status: "Ping", detail: `${msgObject.coords}`}}});
+                break;
+            }
             case "tp": {
                 await usersDatabase
                 .findOneAndUpdate({ign: player}, 
