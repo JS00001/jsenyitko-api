@@ -1,5 +1,5 @@
 const Controller = require("../../core/controller");
-const ws = require("../../socket.v2");
+const ws = require("../../socket");
 
 class Whitelist extends Controller {
     constructor() {

@@ -2,7 +2,7 @@ const {client, WebhookClient} = require("./core/config");
 const Discord = require("discord.js");
 const Config = require("./core/config");
 const db = require("./core/models");
-const ws = require("./socket.v2");
+const ws = require("./socket");
 
 client.login(Config.botToken);
 
