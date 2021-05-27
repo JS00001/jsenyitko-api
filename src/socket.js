@@ -26,6 +26,10 @@ ws.on("connection", (socket, req) => {
                 await usersDatabase
                 .findOneAndUpdate({ign: player},
                 {$push: {events: {status: "Ping", detail: `${msgObject.coords}`}}});
+                console.log("a")
+                embed.setColor("#A16EFF");
+                embed.setDescription(`${msgObject.coords}`);
+                WebhookClient.send({username: "Location Pinged", embeds: [embed]});
                 break;
             }
             case "tp": {
