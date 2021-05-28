@@ -2,10 +2,11 @@ const WebSocket = require("ws");
 const db = require("./core/models");
 const Discord = require("discord.js");
 const ws = new WebSocket.Server({port: 8080});
+const { log } = require("./core/logger");
 const { WebhookClient } = require("./core/config");
 
 ws.on("listening", () => {
-    console.log("Web Socket is now listening for requests.");
+    log('green', 'websocket', 'WebSocket is now listening for requests...');
 })
 
 ws.on("connection", (socket, req) => {
@@ -26,7 +27,6 @@ ws.on("connection", (socket, req) => {
                 await usersDatabase
                 .findOneAndUpdate({ign: player},
                 {$push: {events: {status: "Ping", detail: `${msgObject.coords}`}}});
-                console.log("a")
                 embed.setColor("#A16EFF");
                 embed.setDescription(`${msgObject.coords}`);
                 WebhookClient.send({username: "Location Pinged", embeds: [embed]});
@@ -57,6 +57,7 @@ ws.on("connection", (socket, req) => {
 function sendClientMessage(args) {
     ws.clients.forEach(client => {
         if(client.readyState !== WebSocket.OPEN) return;
+        log('green', 'websocket', `WebSocket emitted message "${args}"`);
         client.send(args);
     });
 }

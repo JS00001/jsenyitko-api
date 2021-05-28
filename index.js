@@ -1,4 +1,6 @@
-const App = require("./src/app");
+console.clear();
+
+const App = require("./src/app.v2");
 const Express = require("express");
 require("./src/socket");
 require("./src/discord");

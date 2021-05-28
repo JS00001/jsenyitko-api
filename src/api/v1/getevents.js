@@ -5,7 +5,7 @@ class GetEvents extends Controller {
         super();
         return {
             register: {
-                api: true,
+                api: true, 
                 protected: true,
                 uri: '/getevents',
                 method: 'get',

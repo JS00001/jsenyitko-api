@@ -1,13 +1,14 @@
 const {client, WebhookClient} = require("./core/config");
 const Discord = require("discord.js");
 const Config = require("./core/config");
+const logger = require("./core/logger");
 const db = require("./core/models");
 const ws = require("./socket");
 
 client.login(Config.botToken);
 
 client.on("ready", () => {
-    console.log("Discord bot is now listening.");
+    logger.log("white", "discord", "Discord bot is now online")
 })
 
 client.on("message", async msg => {

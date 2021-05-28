@@ -10,4 +10,8 @@ async function apiAuth(req, res, next) {
     next();
 }
 
-module.exports = {apiAuth}
+async function adminApiAuth(req, res, next) {
+
+}
+
+module.exports = {apiAuth, adminApiAuth}

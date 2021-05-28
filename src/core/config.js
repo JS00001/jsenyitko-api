@@ -8,7 +8,7 @@ require("dotenv").config({ silent: true });
 const config = {
     node_env: getenv("NODE_ENV", null),
     author: 'Jsenyitko',
-    apiVersion: 'v1',
+    apiVersion: 'v2',
     url: "https://jsenyitko.tech"
 }
 

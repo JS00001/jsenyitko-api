@@ -7,6 +7,7 @@ const express = require("express");
 const http = require("http");
 
 const auth = require("./middleware/authMiddleware");
+const logger = require("./core/logger");
 const config = require('./core/config');
 const db = require('./core/models');
 require("./middleware/passportDiscord");
@@ -54,8 +55,8 @@ class App {
         server.listen(app.get('port'), (e) => {
             if (e) return console.log(e);
             else {
-                console.log(`Express server listening on port ${app.get('port')}`);
-                console.log('Express server started successfully');
+                logger.log('orange', 'webserver', `Express server listening on port ${app.get('port')}`);
+                logger.log('orange', 'webserver', 'Express server started successfully');
             }
         })
     }
@@ -76,9 +77,24 @@ class App {
         for (let object in route) {
             let routeData = route[object];
             let uri = routeData.api ? `/api/${config.apiVersion}${routeData.uri}` : routeData.uri;
-            if(routeData.protected) app[routeData.method](uri, auth.apiAuth, routeData.handler.bind(routeData));
-            else app[routeData.method](uri, routeData.handler.bind(routeData));
-            console.log(`* Route: ${JSON.stringify(routeData.method).toUpperCase()} ${uri} created`);
+
+            switch (routeData.authLevel) {
+                case 0: {
+                    app[routeData.method](uri, routeData.handler.bind(routeData));
+                    logger.log("blue", "route created", `${uri} was created successfully (Auth: 1)`);
+                    break;
+                }
+                case 1: {
+                    app[routeData.method](uri, auth.apiAuth, routeData.handler.bind(routeData));
+                    logger.log("blue", "route created", `${uri} was created successfully (Auth: 1)`);
+                    break;
+                }
+                case 2: {
+                    app[routeData.method](uri, auth.adminApiAuth, routeData.handler.bind(routeData));
+                    logger.log("blue", "route created", `${uri} was created successfully (Auth: 1)`);
+                    break;
+                }
+            }
         }
     }
 }
