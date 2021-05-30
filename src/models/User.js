@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema({
     ign: String,
     username: String,
     lastChangedUsername: Number,
-    events: Array
+    events: Array,
+    admin: Boolean
 })
 
 module.exports = { name: 'users', schema: userSchema }

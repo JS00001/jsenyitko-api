@@ -13,7 +13,7 @@ let discordStrategy = new DiscordStrategy({
 async function(accessToken, refreshToken, profile, cb) {
     const collection = await db.collection('users');
     collection.findOne({id: profile.id}, (err, doc) => {
-        return doc ? cb(err, doc) : collection.create({id: profile.id, ign: "None", username: profile.username, lastChangedUsername: 0, events: []}, (err, result) => {return cb(err, result)})
+        return doc ? cb(err, doc) : collection.create({id: profile.id, ign: "None", username: profile.username, lastChangedUsername: 0, events: [], admin: false}, (err, result) => {return cb(err, result)})
     })
 });
 
