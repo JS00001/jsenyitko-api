@@ -81,7 +81,7 @@ class App {
             switch (routeData.authLevel) {
                 case 0: {
                     app[routeData.method](uri, routeData.handler.bind(routeData));
-                    logger.log("blue", "route created", `${uri} was created successfully (Auth: 1)`);
+                    logger.log("blue", "route created", `${uri} was created successfully (Auth: 0)`);
                     break;
                 }
                 case 1: {
@@ -91,7 +91,7 @@ class App {
                 }
                 case 2: {
                     app[routeData.method](uri, auth.adminApiAuth, routeData.handler.bind(routeData));
-                    logger.log("blue", "route created", `${uri} was created successfully (Auth: 1)`);
+                    logger.log("blue", "route created", `${uri} was created successfully (Auth: 2)`);
                     break;
                 }
             }

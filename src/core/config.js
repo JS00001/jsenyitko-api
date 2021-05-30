@@ -20,6 +20,7 @@ config.staticFileIndex = path.resolve("../jsenyitko-api/static/index.html");
 // General Variables 
 config.mongoUrl = getenv('MONGO_URL', null);
 config.sessionSecret = getenv("SESSION_SECRET", null);
+config.nameCooldown = getenv.int("NAMECHANGE_COOLDOWN", null);
 
 
 // Discord Webhook Variables 
@@ -47,11 +48,13 @@ config.WebhookClient = new Discord.WebhookClient(config.hookID, config.hookSecre
 // Redirects
 config.authenticationUrl = "/auth/discord";
 config.successfulCallbackUrl = "/dashboard";
-config.serverCallbackUrl = "/api/v1/callback";
+config.serverCallbackUrl = `/api/${config.apiVersion}/callback`;
 
 
 // NODE_ENV Based Variables
-config.clientCallbackUrl = config.node_env === "production" ? 'https://jsenyitko.tech/api/v1/callback' : 'http://localhost/api/v1/callback';
+config.clientCallbackUrl = config.node_env === "production" 
+? `https://jsenyitko.tech/api/${config.apiVersion}/callback` 
+: `http://localhost/api/${config.apiVersion}/callback`;
 
 
 

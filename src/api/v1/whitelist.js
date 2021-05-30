@@ -4,7 +4,7 @@ const ws = require("../../socket");
 class Whitelist extends Controller {
     constructor() {
         super();
-        return {
+        return { 
             register: {
                 api: true,
                 protected: true,
