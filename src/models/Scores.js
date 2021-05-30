@@ -1,10 +1,8 @@
 const mongoose = require("mongoose");
 
 const scoresSchema = new mongoose.Schema({
-    username: String,
-    score: Number,
-    timesEntered: Number,
-    timesResponded: Number
+    user: String,
+    scores: Array
 })
 
 module.exports = { name: 'scores', schema: scoresSchema }
