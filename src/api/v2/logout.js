@@ -1,4 +1,5 @@
 const Controller = require("../../core/controller");
+const config = require("../../core/config");
 
 class Logout extends Controller {
     constructor() {
